@@ -12,7 +12,7 @@ function google_passport(User, passport, configAuth) {
             passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         },
         function (req, token, refreshToken, profile, done) {
-
+            console.log(profile);
             // make the code asynchronous
             // User.findOne won't fire until we have all our data back from Google
             process.nextTick(function () {

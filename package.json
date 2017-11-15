@@ -19,9 +19,16 @@
     "mongoose": "4.12.4",
     "morgan": "~1.0.0",
     "passport": "~0.1.17",
+    "passport-bitbucket": "^2.0.0",
     "passport-facebook": "~1.0.2",
+    "passport-github2": "^0.1.11",
     "passport-google-oauth": "~0.1.5",
+    "passport-linkedin": "^1.0.0",
     "passport-local": "~0.1.6",
-    "passport-twitter": "~1.0.2"
+    "passport-soundcloud": "^0.2.0",
+    "passport-spotify": "^0.3.1",
+    "passport-twitter": "~1.0.2",
+    "passport-windowslive": "^1.0.2",
+    "passport-wordpress": "0.0.4"
   }
 }

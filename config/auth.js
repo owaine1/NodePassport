@@ -17,6 +17,10 @@ module.exports = {
         'clientID': '372885609654-ve2n820nogud0sks32lauk9inq6lqrop.apps.googleusercontent.com',
         'clientSecret': 'xkYD-VhFi_vn2Guk-jUxM3C6',
         'callbackURL': 'http://127.0.0.1:8080/auth/google/callback'
-    }
-
+    },
+    'windows': {
+        'clientID': '372885609654-ve2n820nogud0sks32lauk9inq6lqrop.apps.googleusercontent.com',
+        'clientSecret': 'xkYD-VhFi_vn2Guk-jUxM3C6',
+        'callbackURL': 'http://127.0.0.1:8080/auth/google/callback'
+    },
 };

@@ -10,6 +10,7 @@ function facebook_routes(app, passport) {
         passport.authenticate('facebook', {
             successRedirect: '/profile',
             failureRedirect: '/'
+
         }));
     // facebook -------------------------------
     // send to facebook to do the authentication

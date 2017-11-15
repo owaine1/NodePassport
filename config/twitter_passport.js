@@ -2,16 +2,16 @@
 var TwitterStrategy = require('passport-twitter').Strategy;
 
 function twitter_passport(User, passport, configAuth) {
-    passport.use(new TwitterStrategy({
-
-            consumerKey: configAuth.twitterAuth.consumerKey,
-            consumerSecret: configAuth.twitterAuth.consumerSecret,
-            callbackURL: configAuth.twitterAuth.callbackURL,
-            passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-
-        },
+    console.log('doing twitter passport');
+    var config = {
+                    consumerKey: configAuth.twitterAuth.consumerKey,
+                    consumerSecret: configAuth.twitterAuth.consumerSecret,
+                    callbackURL: configAuth.twitterAuth.callbackURL,
+                    passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+                };
+    passport.use(new TwitterStrategy(config,
         function (req, token, tokenSecret, profile, done) {
-
+            console.log(profile);
             // asynchronous
             process.nextTick(function () {
 
@@ -27,15 +27,7 @@ function twitter_passport(User, passport, configAuth) {
                         if (user) {
                             // if there is a user id already but no token (user was linked at one point and then removed)
                             if (!user.twitter.token) {
-                                user.twitter.token = token;
-                                user.twitter.username = profile.username;
-                                user.twitter.displayName = profile.displayName;
-
-                                user.save(function (err) {
-                                    if (err)
-                                        throw err;
-                                    return done(null, user);
-                                });
+                                create_twitter_token(user, token, profile, done);
                             }
 
                             return done(null, user); // user found, return that user
@@ -43,16 +35,7 @@ function twitter_passport(User, passport, configAuth) {
                             // if there is no user, create them
                             var newUser = new User();
 
-                            newUser.twitter.id = profile.id;
-                            newUser.twitter.token = token;
-                            newUser.twitter.username = profile.username;
-                            newUser.twitter.displayName = profile.displayName;
-
-                            newUser.save(function (err) {
-                                if (err)
-                                    throw err;
-                                return done(null, newUser);
-                            });
+                            register_user(newUser, token, profile, done);
                         }
                     });
 
@@ -60,16 +43,7 @@ function twitter_passport(User, passport, configAuth) {
                     // user already exists and is logged in, we have to link accounts
                     var user = req.user; // pull the user out of the session
 
-                    user.twitter.id = profile.id;
-                    user.twitter.token = token;
-                    user.twitter.username = profile.username;
-                    user.twitter.displayName = profile.displayName;
-
-                    user.save(function (err) {
-                        if (err)
-                            throw err;
-                        return done(null, user);
-                    });
+                   register_user(user, token, profile, done);
                 }
 
             });
@@ -77,3 +51,27 @@ function twitter_passport(User, passport, configAuth) {
         }));
 }
 module.exports = twitter_passport;
+
+function create_twitter_token(user, token, profile, done) {
+    user.twitter.token = token;
+    user.twitter.username = profile.username;
+    user.twitter.displayName = profile.displayName;
+
+    user.save(function (err) {
+        if (err)
+            throw err;
+        return done(null, user);
+    });
+}
+function register_user(User, token, profile, done) {
+    User.twitter.id = profile.id;
+    User.twitter.token = token;
+    User.twitter.username = profile.username;
+    User.twitter.displayName = profile.displayName;
+
+    User.save(function (err) {
+        if (err)
+            throw err;
+        return done(null, User);
+    });
+}

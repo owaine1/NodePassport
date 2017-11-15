@@ -20,4 +20,7 @@ module.exports = function (passport) {
 
     var google_passport = require('./google_passport');
     google_passport(User, passport, configAuth);
+
+    // var windowslive_passport = require('./windowslive_passport');
+    // windowslive(User, passport, configAuth);
 }

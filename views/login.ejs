@@ -11,17 +11,17 @@
                 <span class="fa fa-sign-in"></span> Login</h1>
             <!-- show any messages that come back with authentication -->
             <% include ../partials/alert %>
-                    <!-- LOGIN FORM -->
-                    <form action="/login" method="post">
-                        <% include ../partials/login_form %>
+                <!-- LOGIN FORM -->
+                <form action="/login" method="post">
+                    <% include ../partials/login_form %>
                         <button type="submit" class="btn btn-warning btn-lg">Login</button>
-                    </form>
-                    <hr>
-                    <p>Need an account?
-                        <a href="/signup">Signup</a>
-                    </p>
-                    <p>Or go
-                        <a href="/">home</a>.</p>
+                </form>
+                <hr>
+                <p>Need an account?
+                    <a href="/signup">Signup</a>
+                </p>
+                <p>Or go
+                    <a href="/">home</a>.</p>
         </div>
     </div>
 </body>
